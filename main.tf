@@ -93,9 +93,11 @@ resource "azurerm_network_interface" "catapp-nic" {
   }
 }
 
-resource "azurerm_resource_group" "test" {
-  name     = "my-resources"
-  location = "West Europe"
+module "network" {
+  source  = "app.terraform.io/melc-training/network/azurerm"
+  version = "3.5.0"
+  resource_group_name = "test"
+  # insert required variables here
 }
 
 resource "azurerm_network_interface_security_group_association" "catapp-nic-sg-ass" {
@@ -136,7 +138,7 @@ resource "azurerm_linux_virtual_machine" "catapp" {
   }
 
   tags = {
-    "Department": "devop"
+    "Department": "devops"
     "Billable": "true"
     }
 
