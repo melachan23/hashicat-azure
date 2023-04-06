@@ -15,6 +15,12 @@ provider "azurerm" {
   }
 }
 
+module "network" {
+  source  = "app.terraform.io/melc-training/network/azurerm"
+  version = "3.5.0"
+  resource_group_name = "test"
+  # insert required variables here
+}
 resource "azurerm_resource_group" "myresourcegroup" {
   name     = "${var.prefix}-workshop"
   location = var.location
@@ -91,13 +97,6 @@ resource "azurerm_network_interface" "catapp-nic" {
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.catapp-pip.id
   }
-}
-
-module "network" {
-  source  = "app.terraform.io/melc-training/network/azurerm"
-  version = "3.5.0"
-  resource_group_name = "test"
-  # insert required variables here
 }
 
 resource "azurerm_network_interface_security_group_association" "catapp-nic-sg-ass" {
