@@ -112,6 +112,7 @@ resource "azurerm_linux_virtual_machine" "catapp" {
   resource_group_name             = azurerm_resource_group.myresourcegroup.name
   size                            = var.vm_size
   admin_username                  = var.admin_username
+  departnment                     = devops
   admin_password                  = var.admin_password
   disable_password_authentication = false
   network_interface_ids           = [azurerm_network_interface.catapp-nic.id]
