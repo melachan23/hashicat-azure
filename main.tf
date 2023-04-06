@@ -112,8 +112,6 @@ resource "azurerm_linux_virtual_machine" "catapp" {
   resource_group_name             = azurerm_resource_group.myresourcegroup.name
   size                            = var.vm_size
   admin_username                  = var.admin_username
-  department                      = devops
-  billable                        = true
   admin_password                  = var.admin_password
   disable_password_authentication = false
   network_interface_ids           = [azurerm_network_interface.catapp-nic.id]
@@ -136,6 +134,11 @@ resource "azurerm_linux_virtual_machine" "catapp" {
 
   # Added to allow destroy to work correctly.
   depends_on = [azurerm_network_interface_security_group_association.catapp-nic-sg-ass]
+}
+
+resource "azurerm_virtual_machine" "catappvm"{
+  department                      = devops
+  billable                        = true
 }
 
 # We're using a little trick here so we can run the provisioner without
